@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student OS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="logo">S</span><div><h1>Student OS</h1><p>Student Management System</p></div></div>
+    <nav><a href="#home">Home</a><a href="#students">Students</a><a href="#marks">Marks</a><a href="#attendance">Attendance</a></nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div>
+        <p class="eyebrow">WELCOME TO YOUR DASHBOARD</p>
+        <h2>Manage student records<br><span>in one simple place.</span></h2>
+        <p class="hero-copy">Add students, update their details, manage marks and attendance, and view complete student profiles.</p>
+        <a class="primary-link" href="#students">Get Started <span>→</span></a>
+      </div>
+      <div class="hero-art"><div class="orb">S</div><div class="mini-card"><span>✦</span><div><b>Student OS</b><small>Organised. Simple. Ready.</small></div></div></div>
+    </section>
+
+    <section class="stats">
+      <article class="stat-card"><span class="stat-icon">♙</span><div><small>Total Students</small><strong id="studentCount">0</strong></div></article>
+      <article class="stat-card"><span class="stat-icon">▤</span><div><small>Marks Records</small><strong id="marksCount">0</strong></div></article>
+      <article class="stat-card"><span class="stat-icon">◷</span><div><small>Attendance Records</small><strong id="attendanceCount">0</strong></div></article>
+    </section>
+
+    <section class="section" id="students">
+      <div class="section-heading"><div><p class="eyebrow">STUDENT MANAGEMENT</p><h2>Students</h2></div><button class="primary" onclick="showForm('studentForm')">+ Add Student</button></div>
+      <div class="panel">
+        <form id="studentForm" class="form-grid hidden">
+          <input type="hidden" id="editStudentId">
+          <label>Student ID<input id="studentId" required placeholder="e.g. STU101"></label>
+          <label>Full Name<input id="studentName" required placeholder="Student name"></label>
+          <label>Age<input id="studentAge" type="number" min="1" required placeholder="Age"></label>
+          <label>Course<input id="studentCourse" required placeholder="e.g. B.Tech"></label>
+          <label>Semester<input id="studentSemester" type="number" min="1" required placeholder="Semester"></label>
+          <label>Email<input id="studentEmail" type="email" placeholder="name@example.com"></label>
+          <label>Phone<input id="studentPhone" placeholder="Phone number"></label>
+          <div class="form-actions"><button class="primary" type="submit">Save Student</button><button class="secondary" type="button" onclick="resetStudentForm()">Cancel</button></div>
+        </form>
+        <div class="toolbar"><input id="studentSearch" placeholder="Search by ID or student name..." oninput="renderStudents()"></div>
+        <div class="table-wrap"><table><thead><tr><th>Student ID</th><th>Name</th><th>Course</th><th>Semester</th><th>Actions</th></tr></thead><tbody id="studentsTable"><tr><td colspan="5" class="empty">No students registered yet.</td></tr></tbody></table></div>
+      </div>
+    </section>
+
+    <section class="section two-col">
+      <div id="marks">
+        <div class="section-heading"><div><p class="eyebrow">ACADEMIC RECORDS</p><h2>Marks & Grades</h2></div></div>
+        <div class="panel">
+          <form id="marksForm" class="stack-form">
+            <label>Student ID<input id="marksStudentId" required placeholder="Enter student ID"></label>
+            <label>Subject<input id="marksSubject" required placeholder="Subject name"></label>
+            <div class="form-grid compact"><label>Obtained Marks<input id="obtainedMarks" type="number" min="0" step="any" required></label><label>Maximum Marks<input id="maximumMarks" type="number" min="0.01" step="any" required></label></div>
+            <button class="primary" type="submit">Save Marks</button>
+          </form>
+          <p class="hint">Adding marks for the same student and subject updates the existing record.</p>
+        </div>
+      </div>
+      <div id="attendance">
+        <div class="section-heading"><div><p class="eyebrow">CLASS TRACKING</p><h2>Attendance</h2></div></div>
+        <div class="panel">
+          <form id="attendanceForm" class="stack-form">
+            <label>Student ID<input id="attendanceStudentId" required placeholder="Enter student ID"></label>
+            <label>Subject<input id="attendanceSubject" required placeholder="Subject name"></label>
+            <div class="form-grid compact"><label>Total Classes<input id="totalClasses" type="number" min="1" required></label><label>Attended Classes<input id="attendedClasses" type="number" min="0" required></label></div>
+            <button class="primary" type="submit">Save Attendance</button>
+          </form>
+          <p class="hint">Attendance must be between 0 and the total number of classes.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="profile">
+      <div class="section-heading"><div><p class="eyebrow">STUDENT OVERVIEW</p><h2>Student Profile</h2></div></div>
+      <div class="panel">
+        <div class="toolbar"><input id="profileId" placeholder="Enter Student ID to view profile"><button class="primary" onclick="viewProfile()">View Profile</button></div>
+        <div id="profileOutput" class="profile-output"><p class="empty">Search for a student to see their details, marks, grades and attendance.</p></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading"><div><p class="eyebrow">QUICK DIRECTORY</p><h2>All Student Records</h2></div></div>
+      <div class="panel"><div id="directory" class="directory-empty">Your student list will appear here.</div></div>
+    </section>
+    <div id="toast" class="toast"></div>
+  </main>
+  <footer>Student OS · Simple student record management · Demo project</footer>
+  <script src="script.js"></script>
+</body>
+</html>
